@@ -380,7 +380,7 @@ namespace RecipeBox.Objects
 
       SqlParameter recipeNameParam = new SqlParameter();
       recipeNameParam.ParameterName = "@RecipeName";
-      recipeNameParam.Value = searchRecipeName + "%";
+      recipeNameParam.Value = "%" + searchRecipeName + "%";
 
       cmd.Parameters.Add(recipeNameParam);
       SqlDataReader rdr = cmd.ExecuteReader();
