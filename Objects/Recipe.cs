@@ -242,5 +242,63 @@ namespace RecipeBox.Objects
       }
       return categories;
     }
+
+    public void AddIngredient(Ingredient newIngredient)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO recipes_ingredients (recipes_id, ingredients_id) VALUES (@RecipeId, @IngredientId);", conn);
+      SqlParameter recipeIdParameter = new SqlParameter();
+      recipeIdParameter.ParameterName = "@RecipeId";
+      recipeIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(recipeIdParameter);
+
+      SqlParameter ingredientIdParameter = new SqlParameter();
+      ingredientIdParameter.ParameterName = "@IngredientId";
+      ingredientIdParameter.Value = newIngredient.GetId();
+      cmd.Parameters.Add(ingredientIdParameter);
+
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+    public List<Ingredient> GetIngredients()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT ingredients.* FROM recipes JOIN recipes_ingredients ON (recipes.id = recipes_ingredients.recipes_id) JOIN ingredients ON (recipes_ingredients.ingredients_id = ingredients.id) WHERE recipes.id = @RecipeId;", conn);
+      SqlParameter recipeIdParameter = new SqlParameter();
+      recipeIdParameter.ParameterName = "@RecipeId";
+      recipeIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(recipeIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Ingredient> ingredients = new List<Ingredient> {};
+
+      while(rdr.Read())
+        {
+          int thisIngredientId = rdr.GetInt32(0);
+          string ingredientName = rdr.GetString(1);
+          Ingredient foundIngredient = new Ingredient(ingredientName, thisIngredientId);
+          ingredients.Add(foundIngredient);
+        }
+        if (rdr != null)
+        {
+          rdr.Close();
+        }
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return ingredients;
+    }
   }
 }

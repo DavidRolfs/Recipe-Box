@@ -137,5 +137,83 @@ namespace RecipeBox.Objects
 
      return foundIngredient;
     }
+
+    public void Delete()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM ingredients WHERE id = @IngredientId; DELETE FROM recipes_ingredients WHERE ingredients_id = @IngredientId;", conn);
+      SqlParameter ingredientIdParameter = new SqlParameter();
+      ingredientIdParameter.ParameterName = "@IngredientId";
+      ingredientIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(ingredientIdParameter);
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+    public void AddRecipe(Recipe newRecipe)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO recipes_ingredients (ingredients_id, recipes_id) VALUES (@IngredientId, @RecipeId);", conn);
+      SqlParameter ingredientIdParameter = new SqlParameter();
+      ingredientIdParameter.ParameterName = "@IngredientId";
+      ingredientIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(ingredientIdParameter);
+
+      SqlParameter recipeIdParameter = new SqlParameter();
+      recipeIdParameter.ParameterName = "@RecipeId";
+      recipeIdParameter.Value = newRecipe.GetId();
+      cmd.Parameters.Add(recipeIdParameter);
+
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+    public List<Recipe> GetRecipes()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT recipes.* FROM ingredients JOIN recipes_ingredients ON (ingredients.id = recipes_ingredients.ingredients_id) JOIN recipes ON (recipes_ingredients.recipes_id = recipes.id) WHERE ingredients.id = @IngredientId;", conn);
+      SqlParameter ingredientIdParameter = new SqlParameter();
+      ingredientIdParameter.ParameterName = "@IngredientId";
+      ingredientIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(ingredientIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Recipe> recipes = new List<Recipe> {};
+
+      while(rdr.Read())
+        {
+          int thisRecipeId = rdr.GetInt32(0);
+          string recipeName = rdr.GetString(1);
+          int recipeRating = rdr.GetInt32(2);
+          string recipeInstructions = rdr.GetString(3);
+          Recipe foundRecipe = new Recipe(recipeName, recipeRating, recipeInstructions, thisRecipeId);
+          recipes.Add(foundRecipe);
+        }
+        if (rdr != null)
+        {
+          rdr.Close();
+        }
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return recipes;
+    }
   }
 }

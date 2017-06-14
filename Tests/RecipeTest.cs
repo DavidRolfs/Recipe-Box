@@ -96,6 +96,41 @@ namespace RecipeBox
       Assert.Equal(testList, result);
     }
     [Fact]
+    public void TestIngredient_AddsIngredientToRecipe_IngredientList()
+    {
+      Recipe testRecipe = new Recipe("White Bean Soup", 3, "Steps 1, 2, 3");
+      testRecipe.Save();
+
+      Ingredient testIngredient = new Ingredient("Soup");
+      testIngredient.Save();
+
+      testRecipe.AddIngredient(testIngredient);
+
+      List<Ingredient> result = testRecipe.GetIngredients();
+      List<Ingredient> testList = new List<Ingredient>{testIngredient};
+
+      Assert.Equal(testList, result);
+    }
+
+    [Fact]
+    public void TestIngredient_ReturnsAllRecipeIngredients_IngredientList()
+    {
+      Recipe testRecipe = new Recipe("White Bean Soup", 3, "Steps 1, 2, 3");
+      testRecipe.Save();
+
+      Ingredient testIngredient1 = new Ingredient("Soup");
+      testIngredient1.Save();
+
+      Ingredient testIngredient2 = new Ingredient("Dinner Faves");
+      testIngredient2.Save();
+
+      testRecipe.AddIngredient(testIngredient1);
+      List<Ingredient> result = testRecipe.GetIngredients();
+      List<Ingredient> testList = new List<Ingredient> {testIngredient1};
+
+      Assert.Equal(testList, result);
+    }
+    [Fact]
     public void Delete_DeletesRecipeAssociationsFromDataBase_RecipeList()
     {
       Category testCategory = new Category("SO MUCH SOUP");

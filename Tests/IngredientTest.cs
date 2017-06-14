@@ -60,11 +60,64 @@ namespace RecipeBox
       Ingredient foundIngredient = Ingredient.Find(testIngredient.GetId());
       Assert.Equal(testIngredient, foundIngredient);
     }
+    [Fact]
+    public void TestRecipe_AddsRecipeToIngredient_RecipeList()
+    {
+      Ingredient testIngredient = new Ingredient("Soup");
+      testIngredient.Save();
+
+      Recipe testRecipe = new Recipe("Spicy Squash Soup", 5, "Put the spice and the squash in the soup.");
+      testRecipe.Save();
+
+      testIngredient.AddRecipe(testRecipe);
+
+      List<Recipe> result = testIngredient.GetRecipes();
+      List<Recipe> testList = new List<Recipe>{testRecipe};
+
+      Assert.Equal(testList, result);
+    }
+
+    [Fact]
+    public void Test_ReturnsAllIngredientsRecipes_RecipeList()
+    {
+      Ingredient testIngredient = new Ingredient("Soup");
+      testIngredient.Save();
+
+      Recipe testRecipe1 = new Recipe("Spicy Squash Soup", 5, "Put the spice and the squash in the soup.");
+      testRecipe1.Save();
+
+      Recipe testRecipe2 = new Recipe("White Bean Soup", 3, "Steps 1, 2, 3");
+      testRecipe2.Save();
+
+      testIngredient.AddRecipe(testRecipe1);
+      testIngredient.AddRecipe(testRecipe2);
+      List<Recipe> result = testIngredient.GetRecipes();
+      List<Recipe> testList = new List<Recipe> {testRecipe1, testRecipe2};
+
+      Assert.Equal(testList, result);
+    }
+    [Fact]
+    public void Delete_DeletesIngredientAssociationsFromDataBase_IngredientList()
+    {
+      Recipe testRecipe = new Recipe("Spicy Squash Soup", 5, "Put the spice and the squash in the soup.");
+      testRecipe.Save();
+
+      Ingredient testIngredient = new Ingredient("Soup");
+      testIngredient.Save();
+
+      testIngredient.AddRecipe(testRecipe);
+      testIngredient.Delete();
+
+      List<Ingredient> result = testRecipe.GetIngredients();
+      List<Ingredient> test = new List<Ingredient>{};
+
+      Assert.Equal(test, result);
+    }
     public void Dispose()
     {
       Ingredient.DeleteAll();
       Recipe.DeleteAll();
-      Category.DeleteAll();
+      Ingredient.DeleteAll();
     }
   }
 }
