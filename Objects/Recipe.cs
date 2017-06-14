@@ -157,15 +157,90 @@ namespace RecipeBox.Objects
       Recipe foundRecipe = new Recipe(foundRecipeName, foundRecipeRating, foundRecipeInstructions, foundRecipeId);
 
       if (rdr != null)
-     {
-       rdr.Close();
-     }
-     if (conn != null)
-     {
-       conn.Close();
-     }
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
 
-     return foundRecipe;
+      return foundRecipe;
+    }
+    public void Delete()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM recipes WHERE id = @RecipeId; DELETE FROM recipes_categories WHERE recipes_id = @RecipeId;", conn);
+      SqlParameter recipeIdParameter = new SqlParameter();
+      recipeIdParameter.ParameterName = "@RecipeId";
+      recipeIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(recipeIdParameter);
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+    public void AddCategory(Category newCategory)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO recipes_categories (recipes_id, categories_id) VALUES (@RecipeId, @CategoryId);", conn);
+      SqlParameter recipeIdParameter = new SqlParameter();
+      recipeIdParameter.ParameterName = "@RecipeId";
+      recipeIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(recipeIdParameter);
+
+      SqlParameter categoryIdParameter = new SqlParameter();
+      categoryIdParameter.ParameterName = "@CategoryId";
+      categoryIdParameter.Value = newCategory.GetId();
+      cmd.Parameters.Add(categoryIdParameter);
+
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+    public List<Category> GetCategories()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT categories.* FROM recipes JOIN recipes_categories ON (recipes.id = recipes_categories.recipes_id) JOIN categories ON (recipes_categories.categories_id = categories.id) WHERE recipes.id = @RecipeId;", conn);
+      SqlParameter recipeIdParameter = new SqlParameter();
+      recipeIdParameter.ParameterName = "@RecipeId";
+      recipeIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(recipeIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Category> categories = new List<Category> {};
+
+      while(rdr.Read())
+        {
+          int thisCategoryId = rdr.GetInt32(0);
+          string categoryName = rdr.GetString(1);
+          Category foundCategory = new Category(categoryName, thisCategoryId);
+          categories.Add(foundCategory);
+        }
+        if (rdr != null)
+        {
+          rdr.Close();
+        }
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return categories;
     }
   }
 }

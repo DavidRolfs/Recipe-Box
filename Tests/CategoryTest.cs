@@ -60,6 +60,60 @@ namespace RecipeBox
       Category foundCategory = Category.Find(testCategory.GetId());
       Assert.Equal(testCategory, foundCategory);
     }
+
+    [Fact]
+    public void TestRecipe_AddsRecipeToCategory_RecipeList()
+    {
+      Category testCategory = new Category("Soup");
+      testCategory.Save();
+
+      Recipe testRecipe = new Recipe("Spicy Squash Soup", 5, "Put the spice and the squash in the soup.");
+      testRecipe.Save();
+
+      testCategory.AddRecipe(testRecipe);
+
+      List<Recipe> result = testCategory.GetRecipes();
+      List<Recipe> testList = new List<Recipe>{testRecipe};
+
+      Assert.Equal(testList, result);
+    }
+
+    [Fact]
+    public void Test_ReturnsAllCategorysRecipes_RecipeList()
+    {
+      Category testCategory = new Category("Soup");
+      testCategory.Save();
+
+      Recipe testRecipe1 = new Recipe("Spicy Squash Soup", 5, "Put the spice and the squash in the soup.");
+      testRecipe1.Save();
+
+      Recipe testRecipe2 = new Recipe("White Bean Soup", 3, "Steps 1, 2, 3");
+      testRecipe2.Save();
+
+      testCategory.AddRecipe(testRecipe1);
+      testCategory.AddRecipe(testRecipe2);
+      List<Recipe> result = testCategory.GetRecipes();
+      List<Recipe> testList = new List<Recipe> {testRecipe1, testRecipe2};
+
+      Assert.Equal(testList, result);
+    }
+    [Fact]
+    public void Delete_DeletesCategoryAssociationsFromDataBase_CategoryList()
+    {
+      Recipe testRecipe = new Recipe("Spicy Squash Soup", 5, "Put the spice and the squash in the soup.");
+      testRecipe.Save();
+
+      Category testCategory = new Category("Soup");
+      testCategory.Save();
+
+      testCategory.AddRecipe(testRecipe);
+      testCategory.Delete();
+
+      List<Category> result = testRecipe.GetCategories();
+      List<Category> test = new List<Category>{};
+
+      Assert.Equal(test, result);
+    }
     public void Dispose()
     {
       Category.DeleteAll();
