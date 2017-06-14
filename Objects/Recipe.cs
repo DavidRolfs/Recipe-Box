@@ -366,5 +366,44 @@ namespace RecipeBox.Objects
         conn.Close();
       }
     }
+
+
+    public static List<Recipe> SearchRecipeName(string searchRecipeName)
+    {
+      List<Recipe> allRecipes = new List<Recipe>{};
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM recipes WHERE recipe_name Like @RecipeName;", conn);
+
+      SqlParameter recipeNameParam = new SqlParameter();
+      recipeNameParam.ParameterName = "@RecipeName";
+      recipeNameParam.Value = searchRecipeName + "%";
+
+      cmd.Parameters.Add(recipeNameParam);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int recipeId = rdr.GetInt32(0);
+        string recipeName = rdr.GetString(1);
+        int recipeRating = rdr.GetInt32(2);
+        string recipeInstructions = rdr.GetString(3);
+
+        Recipe newRecipe = new Recipe(recipeName, recipeRating, recipeInstructions, recipeId);
+        allRecipes.Add(newRecipe);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return allRecipes;
+    }
   }
 }

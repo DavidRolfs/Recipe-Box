@@ -175,6 +175,22 @@ namespace RecipeBox
       Assert.Equal(newRating, result);
     }
 
+    // [Fact]
+    // public void Test_Search_SearchRecipeByName()
+    // {
+    //   Recipe testRecipe = new Recipe("Spicy Squash Soup", 5, "Put the spice and the squash in the soup.");
+    //   testRecipe.Save();
+    //
+    //   List<Recipe> searchedRecipeInput = Recipe.SearchRecipeName("Squash");
+    //
+    //   string searchedRecipe = searchedRecipeInput.GetRecipeName();
+    //
+    //   string result = testRecipe.GetRecipeName();
+    //
+    //   Assert.Equal(searchedRecipeInput, result);
+    //
+    // }
+
 
 
     public void Dispose()
