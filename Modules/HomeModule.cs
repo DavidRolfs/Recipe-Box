@@ -72,6 +72,7 @@ namespace RecipeBox
         List<Recipe> AllRecipes = Recipe.GetAll();
         model.Add("ingredient", SelectedIngredient);
         model.Add("recipeIngredient", RecipeIngredient);
+        string ipoopedthebed = "david";
         model.Add("allRecipes", AllRecipes);
         return View["ingredient.cshtml", model];
       };
