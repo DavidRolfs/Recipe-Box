@@ -1,0 +1,25 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+
+<h2>@Model["ingredient"].GetIngredientName()</h2>
+
+@if (@Model["recipeIngredient"].Count !=0)
+{
+  <hr>
+  <h4>Here are all the recipes that use this ingredient:</h4>
+  <ul>
+    @foreach (var recipe in @Model["recipeIngredient"])
+    {
+      <li>@recipe.GetRecipeName(),@recipe.GetRating()</li>
+    }
+  </ul>
+}
+
+<hr>
+<form action='/ingredient/delete/@Model["ingredient"].GetId()' method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit" class="btn btn-danger">Delete this ingredient</button>
+</form>
+<hr>
+<p><a href="/">Return to Main Page</a></p>

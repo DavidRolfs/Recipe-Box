@@ -1,0 +1,42 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+
+<h2>@Model["category"].GetCategoryName()</h2>
+
+@if (@Model["recipeCategory"].Count !=0)
+{
+  <hr>
+  <h4>Here are all the recipes in this Category:</h4>
+  <ul>
+    @foreach (var recipe in @Model["recipeCategory"])
+    {
+      <li>@recipe.GetRecipeName(),@recipe.GetRating()</li>
+    }
+  </ul>
+}
+
+@if (@Model["allRecipes"].Count !=0)
+{
+  <hr>
+  <h4>Add a recipe to this category:</h4>
+  <form action='/category/success' method='post'>
+    <input id='category-id' name='category-id' type='hidden' value='@Model["category"].GetId()'>
+    <label for='recipe-id'>Select a recipe</label>
+    <select id='recipe-id' name='recipe-id' type='text'>
+      @foreach (var recipe in @Model["allRecipes"])
+      {
+        <option value='@recipe.GetId()'>@recipe.GetRecipeName() @recipe.GetRating()</option>
+      }
+    </select>
+    <br>
+    <button type='submit' class="btn btn-info">Add</button>
+  </form>
+}
+<hr>
+<form action='/categorys/delete/@Model["category"].GetId()' method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit" class="btn btn-danger">Delete this category</button>
+</form>
+<hr>
+<p><a href="/">Return to Main Page</a></p>
