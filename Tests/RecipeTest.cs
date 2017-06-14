@@ -194,7 +194,27 @@ namespace RecipeBox
       Assert.Equal(Result, searchedRecipeInput);
     }
 
+    [Fact]
+    public void Test_Search_SearchRecipeByRating()
+    {
+      Recipe testRecipe1 = new Recipe("Spicy Squash Soup", 5, "Put the spice and the squash in the soup.");
+      testRecipe1.Save();
 
+      Recipe testRecipe2 = new Recipe("Spicy Squash", 5, "Put the spice and the squash in the soup.");
+      testRecipe2.Save();
+
+      Recipe testRecipe3 = new Recipe("Spicy Squash Soup", 6, "Put the spice and the squash in the soup.");
+      testRecipe3.Save();
+
+      Recipe testRecipe4 = new Recipe("Spicy Squash Soup", 3, "Put the spice and the squash in the soup.");
+      testRecipe4.Save();
+
+      List<Recipe> searchedRecipeInput = Recipe.FindRecipeByRating();
+
+      List<Recipe> Result = new List<Recipe>{testRecipe1, testRecipe2, testRecipe3};
+
+      Assert.Equal(Result, searchedRecipeInput);
+    }
 
     public void Dispose()
     {

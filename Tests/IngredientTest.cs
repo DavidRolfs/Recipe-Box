@@ -113,6 +113,24 @@ namespace RecipeBox
 
       Assert.Equal(test, result);
     }
+    [Fact]
+    public void Test_Search_SearchIngredientByName()
+    {
+      Ingredient testIngredient1 = new Ingredient("Oregano");
+      testIngredient1.Save();
+
+      Ingredient testIngredient2 = new Ingredient("Sea Salt");
+      testIngredient2.Save();
+
+      Ingredient testIngredient3 = new Ingredient("Garlic salt");
+      testIngredient3.Save();
+
+      List<Ingredient> searchedIngredientInput = Ingredient.SearchIngredients("salt");
+
+      List<Ingredient> Result = new List<Ingredient>{testIngredient2, testIngredient3};
+
+      Assert.Equal(Result, searchedIngredientInput);
+    }
     public void Dispose()
     {
       Ingredient.DeleteAll();

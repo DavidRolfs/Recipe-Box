@@ -135,7 +135,7 @@ namespace RecipeBox.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM recipes WHERE id = @RecipeId", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM recipes WHERE id = @RecipeId ORDER BY rating DESC", conn);
       SqlParameter recipeIdParameter = new SqlParameter();
       recipeIdParameter.ParameterName = "@RecipeId";
       recipeIdParameter.Value = id.ToString();
@@ -383,6 +383,40 @@ namespace RecipeBox.Objects
       recipeNameParam.Value = "%" + searchRecipeName + "%";
 
       cmd.Parameters.Add(recipeNameParam);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int recipeId = rdr.GetInt32(0);
+        string recipeName = rdr.GetString(1);
+        int recipeRating = rdr.GetInt32(2);
+        string recipeInstructions = rdr.GetString(3);
+
+        Recipe newRecipe = new Recipe(recipeName, recipeRating, recipeInstructions, recipeId);
+        allRecipes.Add(newRecipe);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return allRecipes;
+    }
+
+
+
+    public static List<Recipe> FindRecipeByRating()
+    {
+      List<Recipe> allRecipes = new List<Recipe>{};
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM recipes WHERE rating>=5;", conn);
+
       SqlDataReader rdr = cmd.ExecuteReader();
 
       while(rdr.Read())
