@@ -1,0 +1,12 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+<h1>Add a new ingredient</h1>
+<form action="/ingredients/new" method="post">
+  <label for="ingredient-name">Ingredient Name:</label>
+  <input id="ingredient-name" name="ingredient-name" type="text">
+  <br>
+  <button type="submit" class="btn btn-info">Add new ingredient</button>
+</form>
+<p><a href="/">Back home</a></p>
+<p><a href="/ingredients">View all ingredients</a></p>

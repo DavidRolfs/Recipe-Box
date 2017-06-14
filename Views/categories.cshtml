@@ -1,0 +1,20 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+@if (@Model.Count == 0)
+{
+  <p>No categories have been added yet!</p>
+}
+else
+{
+  <h1>Here is a list of categories:</h1>
+  <ul>
+    @foreach (var category in Model)
+    {
+      <li><a href='/category/@category.GetId()'>@category.GetCategoryName()</a></li>
+    }
+  </ul>
+
+}
+<p><a href="/categories/new">Add a new category</a></p>
+<p><a href="/">Return home</a></p>

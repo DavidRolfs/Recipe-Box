@@ -1,0 +1,20 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+@if (@Model.Count == 0)
+{
+  <p>No ingredients have been added yet!</p>
+}
+else
+{
+  <h1>Here is a list of ingredients:</h1>
+  <ul>
+    @foreach (var ingredient in Model)
+    {
+      <li><a href='/ingredient/@ingredient.GetId()'>@ingredient.GetIngredientName()</a></li>
+    }
+  </ul>
+
+}
+<p><a href="/ingredients/new">Add a new ingredient</a></p>
+<p><a href="/">Return home</a></p>
