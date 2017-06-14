@@ -147,6 +147,36 @@ namespace RecipeBox
 
       Assert.Equal(test, result);
     }
+    [Fact]
+    public void Test_Update_UpdateInstructionsInDatabase()
+    {
+
+      Recipe testRecipe= new Recipe("Spicy Squash Soup", 5, "Put the spice and the squash in the soup.");
+      testRecipe.Save();
+      string newInstructions = "add salt";
+
+      testRecipe.UpdateInstructions(newInstructions);
+
+      string result = testRecipe.GetInstructions();
+
+      Assert.Equal(newInstructions, result);
+    }
+    [Fact]
+    public void Test_Update_UpdatesRatingInDatabase()
+    {
+      Recipe testRecipe = new Recipe("Spicy Squash Soup", 5, "Put the spice and the squash in the soup.");
+      testRecipe.Save();
+      int newRating = 6;
+
+      testRecipe.UpdateRating(newRating);
+
+      int result = testRecipe.GetRating();
+
+      Assert.Equal(newRating, result);
+    }
+
+
+
     public void Dispose()
     {
       Recipe.DeleteAll();
