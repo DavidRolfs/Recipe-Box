@@ -100,13 +100,13 @@ namespace RecipeBox
         Ingredient ingredient = Ingredient.Find(Request.Form["ingredient-id"]);
         Recipe recipe = Recipe.Find(Request.Form["recipe-id"]);
         recipe.AddIngredient(ingredient);
-        return View["success.cshtml"];
+        return View["index.cshtml"];
       };
       Post["recipe/category/success"] = _ => {
         Category category = Category.Find(Request.Form["category-id"]);
         Recipe recipe = Recipe.Find(Request.Form["recipe-id"]);
         recipe.AddCategory(category);
-        return View["success.cshtml"];
+        return View["index.cshtml"];
       };
 
     }

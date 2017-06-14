@@ -43,7 +43,7 @@
   <button type='submit' class="btn btn-success">Add</button>
 </form>
 <h4>Add a category for this recipe:</h4>
-<form action='/recipe/add_category' method='post'>
+<form action='/recipe/category/success' method='post'>
   <input id='recipe-id' name='recipe-id' type='hidden' value='@Model["recipe"].GetId()'>
   <label for='category-id'>Select a category</label>
   <select id='category-id' name='category-id' type='text'>
