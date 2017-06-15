@@ -69,7 +69,7 @@ namespace RecipeBox.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM recipes;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM recipes ORDER BY recipe_name;", conn);
       SqlDataReader rdr = cmd.ExecuteReader();
 
       while(rdr.Read())
@@ -398,7 +398,7 @@ namespace RecipeBox.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM recipes WHERE rating>=5;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM recipes WHERE rating>=5 ORDER BY rating DESC;", conn);
 
       SqlDataReader rdr = cmd.ExecuteReader();
 

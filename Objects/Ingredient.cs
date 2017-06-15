@@ -55,7 +55,7 @@ namespace RecipeBox.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM ingredients;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM ingredients ORDER BY ingredient_name;", conn);
       SqlDataReader rdr = cmd.ExecuteReader();
 
       while(rdr.Read())
@@ -109,7 +109,7 @@ namespace RecipeBox.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM ingredients WHERE id = @IngredientId", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM ingredients WHERE id = @IngredientId;", conn);
       SqlParameter ingredientIdParameter = new SqlParameter();
       ingredientIdParameter.ParameterName = "@IngredientId";
       ingredientIdParameter.Value = id.ToString();

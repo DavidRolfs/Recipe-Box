@@ -187,6 +187,10 @@ namespace RecipeBox
         List<Recipe> searchRecipe = Recipe.SearchRecipeName(Request.Form["recipe-search"]);
         return View["recipes_search.cshtml", searchRecipe];
       };
+      Get["/recipes/favorites"] = _ => {
+        List<Recipe> topRecipes = Recipe.FindRecipeByRating();
+        return View["recipes_top_rated.cshtml", topRecipes];
+      };
     }
   }
 }

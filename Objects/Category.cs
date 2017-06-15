@@ -55,7 +55,7 @@ namespace RecipeBox.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM categories;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM categories ORDER BY category_name;", conn);
       SqlDataReader rdr = cmd.ExecuteReader();
 
       while(rdr.Read())

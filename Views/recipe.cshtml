@@ -59,14 +59,13 @@
   <input type="hidden" name="_method" value="PATCH">
   <label for="new-rating">Update this recipe's rating</label>
   <input type="number" name="new-rating">
-  <br>
   <button type="submit" class="btn btn-info">Update</button>
   </form>
+  <br>
   <form action='/recipe/update/instructions/@Model["recipe"].GetId()' method="post">
   <input type="hidden" name="_method" value="PATCH">
   <label for="new-instructions">Update this recipe's instructions</label>
   <input type="text" name="new-instructions">
-  <br>
   <button type="submit" class="btn btn-info">Update</button>
 </form>
 <hr>

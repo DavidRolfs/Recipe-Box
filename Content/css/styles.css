@@ -1,0 +1,66 @@
+body{
+  background-color: Tomato;
+}
+.container-fluid {
+  margin-top: none;
+}
+
+.jumbotron {
+  margin-bottom: 0px;
+  background-color: #4abdac;
+}
+
+.navbar {
+  background-color: #dfdce3;
+}
+
+.nav-item:hover a:hover {
+  background-color: #f7b733;
+  color: white;
+}
+
+.navbar a {
+  color: black;
+}
+
+a {
+  color: white;
+  font-size: 25px;
+}
+
+a:hover {
+  color: #f7b733;
+}
+
+body {
+font-family: 'Cabin Sketch', cursive;
+}
+
+.btn-danger {
+  background-color: #c9302c;
+
+}
+
+.btn-danger:hover {
+  background-color: #d9534f;
+}
+
+.btn-info {
+  background-color: #f7b733;
+  border: none;
+}
+
+.btn-info:hover {
+  background-color: #f9cc70;
+  border-color: #f7b733;
+}
+
+.btn-success {
+  background-color: #4abdac;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #80d0c4;
+  border-color: #4abdac;
+}

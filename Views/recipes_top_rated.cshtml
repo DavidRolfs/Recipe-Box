@@ -1,0 +1,10 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+<h2>Here are the highest rated recipes!</h2>
+<ul>
+  @foreach (var recipe in Model)
+  {
+    <li><a href='/recipe/@recipe.GetId()'>@recipe.GetRecipeName(), @recipe.GetRating() stars</a></li>
+  }
+</ul>
