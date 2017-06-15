@@ -1,9 +1,8 @@
 @{
   Layout="Shared/_Layout.cshtml";
 }
-
-<h2>Are you sure you want to delete this ingredient from the recipe?</h2>
-<form action="/recipe/ingredient/delete/@Model.GetId()" method="post">
+<h2>Are you sure you want to delete this ingredient?</h2>
+<form action="/ingredient/delete/@Model.GetId()" method="post">
   <input type="hidden" name="_method" value="DELETE">
   <button type="submit" class="btn btn-danger btn-lg">Delete</button>
 </form>

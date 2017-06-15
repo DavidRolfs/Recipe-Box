@@ -30,7 +30,7 @@ namespace RecipeBox
       Post["/recipes/new"] = _ => {
         Recipe newRecipe = new Recipe(Request.Form["recipe-name"], Request.Form["recipe-rating"], Request.Form["recipe-instructions"]);
         newRecipe.Save();
-        return View["index.cshtml"];
+        return View["success.cshtml"];
       };
       Get["/categories/new"] = _ => {
         return View["category_form.cshtml"];
@@ -38,7 +38,7 @@ namespace RecipeBox
       Post["/categories/new"] = _ => {
         Category newCategory = new Category(Request.Form["category-name"]);
         newCategory.Save();
-        return View["index.cshtml"];
+        return View["success.cshtml"];
       };
       Get["/ingredients/new"] = _ => {
         return View["ingredient_form.cshtml"];
@@ -46,7 +46,7 @@ namespace RecipeBox
       Post["/ingredients/new"] = _ => {
         Ingredient newIngredient = new Ingredient(Request.Form["ingredient-name"]);
         newIngredient.Save();
-        return View["index.cshtml"];
+        return View["success.cshtml"];
       };
       Get["category/{id}"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>();
@@ -62,7 +62,7 @@ namespace RecipeBox
         Category category = Category.Find(Request.Form["category-id"]);
         Recipe recipe = Recipe.Find(Request.Form["recipe-id"]);
         recipe.AddCategory(category);
-        return View["index.cshtml"];
+        return View["success.cshtml"];
       };
 
       Get["ingredient/{id}"] = parameters => {
@@ -79,7 +79,7 @@ namespace RecipeBox
         Ingredient ingredient = Ingredient.Find(Request.Form["ingredient-id"]);
         Recipe recipe = Recipe.Find(Request.Form["recipe-id"]);
         recipe.AddIngredient(ingredient);
-        return View["index.cshtml"];
+        return View["success.cshtml"];
       };
 
       Get["recipe/{id}"] = parameters => {
@@ -106,7 +106,7 @@ namespace RecipeBox
         Category category = Category.Find(Request.Form["category-id"]);
         Recipe recipe = Recipe.Find(Request.Form["recipe-id"]);
         recipe.AddCategory(category);
-        return View["index.cshtml"];
+        return View["success.cshtml"];
       };
       Get["recipe/ingredient/delete/{id}"]= parameters =>{
         Ingredient SelectedIngredient = Ingredient.Find(parameters.id);
@@ -115,7 +115,7 @@ namespace RecipeBox
       Delete["recipe/ingredient/delete/{id}"]= parameters =>{
         Ingredient SelectedIngredient = Ingredient.Find(parameters.id);
         SelectedIngredient.DeleteIngredient();
-        return View["index.cshtml"];
+        return View["success.cshtml"];
       };
       Patch["/recipe/update/rating/{id}"] = parameters => {
         Recipe CurrentRecipe = Recipe.Find(parameters.id);
@@ -154,11 +154,31 @@ namespace RecipeBox
         return View["category_delete.cshtml", currentCategory];
       };
       Delete["/category/delete/{id}"] = parameters => {
-       Category currentCategory = Category.Find(parameters.id);
-       currentCategory.Delete();
-       List<Category> allCategories = Category.GetAll();
-       return View["categories.cshtml", allCategories];
-     };
+        Category currentCategory = Category.Find(parameters.id);
+        currentCategory.Delete();
+        List<Category> allCategories = Category.GetAll();
+        return View["categories.cshtml", allCategories];
+      };
+      Get["/recipe/delete/{id}"] = parameters => {
+        Recipe currentRecipe = Recipe.Find(parameters.id);
+        return View["recipe_delete.cshtml", currentRecipe];
+      };
+      Delete["/recipe/delete/{id}"] = parameters => {
+        Recipe currentRecipe = Recipe.Find(parameters.id);
+        currentRecipe.Delete();
+        List<Recipe> allRecipes = Recipe.GetAll();
+        return View["recipes.cshtml", allRecipes];
+      };
+      Get["/ingredient/delete/{id}"] = parameters => {
+        Ingredient currentIngredient = Ingredient.Find(parameters.id);
+        return View["ingredient_delete.cshtml", currentIngredient];
+      };
+      Delete["/ingredient/delete/{id}"] = parameters => {
+        Ingredient currentIngredient = Ingredient.Find(parameters.id);
+        currentIngredient.Delete();
+        List<Ingredient> allIngredients = Ingredient.GetAll();
+        return View["ingredients.cshtml", allIngredients];
+      };
     }
   }
 }
