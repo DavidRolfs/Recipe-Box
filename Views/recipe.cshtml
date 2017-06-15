@@ -33,7 +33,7 @@
 <h3>Add an ingredient for this recipe:</h3>
 <form action='/recipe/ingredient/success' method='post'>
   <input id='recipe-id' name='recipe-id' type='hidden' value='@Model["recipe"].GetId()'>
-  <label for='ingredient-id'>Select an ingredient</label>
+  <label for='ingredient-id'>Select an ingredient </label>
   <select id='ingredient-id' name='ingredient-id' type='text'>
     @foreach (var ingredient in @Model["allIngredients"])
     {
@@ -45,7 +45,7 @@
 <h3>Add a category for this recipe:</h3>
 <form action='/recipe/category/success' method='post'>
   <input id='recipe-id' name='recipe-id' type='hidden' value='@Model["recipe"].GetId()'>
-  <label for='category-id'>Select a category</label>
+  <label for='category-id'>Select a category </label>
   <select id='category-id' name='category-id' type='text'>
     @foreach (var category in @Model["allCategories"])
     {
@@ -55,22 +55,29 @@
   <button type='submit' class="btn btn-success">Add</button>
 </form>
 <hr>
-<form action='/recipe/update/rating/@Model["recipe"].GetId()' method="post">
-  <input type="hidden" name="_method" value="PATCH">
-  <label for="new-rating">Update this recipe's rating</label>
-  <input type="number" name="new-rating" placeholder="Number between 1-6">
-  <button type="submit" class="btn btn-info">Update</button>
-  </form>
-  <br>
   <form action='/recipe/update/instructions/@Model["recipe"].GetId()' method="post">
   <input type="hidden" name="_method" value="PATCH">
-  <label for="new-instructions">Update this recipe's instructions</label>
+  <label for="new-instructions">New instructions for this recipe: </label>
   <input type="text" name="new-instructions" placeholder="New instructions">
   <button type="submit" class="btn btn-info">Update</button>
 </form>
+<br>
+<form action='/recipe/update/rating/@Model["recipe"].GetId()' method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <label for="new-rating">Update this recipe's rating: </label>
+  <select id="recipe-rating" name="new-rating" type="number">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+  </select>
+  <button type="submit" class="btn btn-info">Update</button>
+  </form>
+
 <hr>
 <form action='/recipe/delete/@Model["recipe"].GetId()' method="post">
   <input type="hidden" name="_method" value="DELETE">
   <button type="submit" class="btn btn-danger">Delete this recipe</button>
 </form>
-<p><a href="/">Return to Main Page</a></p>

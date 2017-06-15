@@ -81,3 +81,7 @@ font-family: 'Cabin Sketch', cursive;
   75% {color: #4abdac};
   100% {color: #4abdac};
 }
+
+textarea {
+  width: 700px;
+}

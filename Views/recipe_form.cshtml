@@ -1,10 +1,13 @@
 @{
   Layout="Shared/_Layout.cshtml";
 }
+<div class="textarea">
+
+
 <form action="/recipes/new" method="post">
   <label for="recipe-name">Recipe Name</label>
-  <br>
   <input id="recipe-name" name="recipe-name" type="text">
+  <br>
   <br>
   <label for="recipe-rating">Recipe Rating (6 STARS IS THE BEST)</label>
   <select id="recipe-rating" name="recipe-rating" type="number">
@@ -16,12 +19,11 @@
     <option value="6">6</option>
   </select>
   <br>
+  <br>
   <label for="recipe-instructions">Recipe Instructions</label>
   <br>
-  <!-- TODO:fix me width -->
   <textarea id="recipe-instructions" name="recipe-instructions" type="text" rows ="15"></textarea>
   <br>
   <button type="submit" class="btn btn-info">Add</button>
 </form>
-<br>
-<h4><a href="/recipes">View All Recipes</a></h4>
+</div>
