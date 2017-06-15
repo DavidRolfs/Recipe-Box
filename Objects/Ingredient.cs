@@ -250,5 +250,23 @@ namespace RecipeBox.Objects
       }
       return allIngredients;
     }
+    public void DeleteIngredient()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM recipes_ingredients WHERE ingredients_id = @IngredientId;", conn);
+      SqlParameter ingredientIdParameter = new SqlParameter();
+      ingredientIdParameter.ParameterName = "@IngredientId";
+      ingredientIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(ingredientIdParameter);
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
   }
 }

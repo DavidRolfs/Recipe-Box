@@ -72,7 +72,6 @@ namespace RecipeBox
         List<Recipe> AllRecipes = Recipe.GetAll();
         model.Add("ingredient", SelectedIngredient);
         model.Add("recipeIngredient", RecipeIngredient);
-        string ipoopedthebed = "david";
         model.Add("allRecipes", AllRecipes);
         return View["ingredient.cshtml", model];
       };
@@ -109,7 +108,47 @@ namespace RecipeBox
         recipe.AddCategory(category);
         return View["index.cshtml"];
       };
-
+      Get["recipe/ingredient/delete/{id}"]= parameters =>{
+        Ingredient SelectedIngredient = Ingredient.Find(parameters.id);
+        return View["ingredient_recipe_delete.cshtml", SelectedIngredient];
+      };
+      Delete["recipe/ingredient/delete/{id}"]= parameters =>{
+        Ingredient SelectedIngredient = Ingredient.Find(parameters.id);
+        SelectedIngredient.DeleteIngredient();
+        return View["index.cshtml"];
+      };
+      Patch["/recipe/update/rating/{id}"] = parameters => {
+        Recipe CurrentRecipe = Recipe.Find(parameters.id);
+        int newRating = Request.Form["new-rating"];
+        CurrentRecipe.UpdateRating(newRating);
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        List<Ingredient> RecipeIngredients = CurrentRecipe.GetIngredients();
+        List<Ingredient> AllIngredients = Ingredient.GetAll();
+        List<Category> RecipeCategories = CurrentRecipe.GetCategories();
+        List<Category> AllCategories = Category.GetAll();
+        model.Add("recipe", CurrentRecipe);
+        model.Add("recipeIngredients", RecipeIngredients);
+        model.Add("recipeCategories", RecipeCategories);
+        model.Add("allIngredients", AllIngredients);
+        model.Add("allCategories", AllCategories);
+        return View["recipe.cshtml", model];
+      };
+      Patch["/recipe/update/instructions/{id}"] = parameters => {
+        Recipe CurrentRecipe = Recipe.Find(parameters.id);
+        string newInstructions = Request.Form["new-instructions"];
+        CurrentRecipe.UpdateInstructions(newInstructions);
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        List<Ingredient> RecipeIngredients = CurrentRecipe.GetIngredients();
+        List<Ingredient> AllIngredients = Ingredient.GetAll();
+        List<Category> RecipeCategories = CurrentRecipe.GetCategories();
+        List<Category> AllCategories = Category.GetAll();
+        model.Add("recipe", CurrentRecipe);
+        model.Add("recipeIngredients", RecipeIngredients);
+        model.Add("recipeCategories", RecipeCategories);
+        model.Add("allIngredients", AllIngredients);
+        model.Add("allCategories", AllCategories);
+        return View["recipe.cshtml", model];
+      };
     }
   }
 }

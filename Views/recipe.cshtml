@@ -3,18 +3,18 @@
 }
 <h2>Recipe: @Model["recipe"].GetRecipeName()</h2>
 <h4><strong>Rating: @Model["recipe"].GetRating()</strong></h4>
-<br>
+
 <h3>Instructions:</h3>
 <p>@Model["recipe"].GetInstructions()</p>
 
 @if (@Model["recipeIngredients"].Count != 0)
 {
   <hr>
-  <h4>Ingredients:</h4>
+  <h4>Ingredients (Click ingredient to delete it from the recipe):</h4>
   <ul>
     @foreach (var ingredients in @Model["recipeIngredients"])
     {
-      <li>@ingredients.GetIngredientName()</li>
+      <li><a href="/recipe/ingredient/delete/@ingredients.GetId()">@ingredients.GetIngredientName()</a></li>
     }
   </ul>
 }
@@ -55,11 +55,15 @@
   <button type='submit' class="btn btn-success">Add</button>
 </form>
 <hr>
-<form action='/recipe/update/@Model["recipe"].GetId()' method="post">
+<form action='/recipe/update/rating/@Model["recipe"].GetId()' method="post">
   <input type="hidden" name="_method" value="PATCH">
   <label for="new-rating">Update this recipe's rating</label>
-  <input type="text" name="new-rating">
+  <input type="number" name="new-rating">
   <br>
+  <button type="submit" class="btn btn-info">Update</button>
+  </form>
+  <form action='/recipe/update/instructions/@Model["recipe"].GetId()' method="post">
+  <input type="hidden" name="_method" value="PATCH">
   <label for="new-instructions">Update this recipe's instructions</label>
   <input type="text" name="new-instructions">
   <br>
