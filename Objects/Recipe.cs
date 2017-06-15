@@ -301,39 +301,6 @@ namespace RecipeBox.Objects
       return ingredients;
     }
 
-    // public void UpdateInstructions(string newInstructions)
-    // {
-    //   SqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //
-    //   SqlCommand cmd = new SqlCommand("UPDATE recipes SET instructions = @NewInstructions OUTPUT INSERTED.instructions WHERE id = @RecipeId;", conn);
-    //
-    //
-    //   SqlParameter newInstructionsParameter = new SqlParameter();
-    //   newInstructionsParameter.ParameterName = "@NewInstructions";
-    //   newInstructionsParameter.Value = newInstructions;
-    //   cmd.Parameters.Add(newInstructionsParameter);
-    //
-    //   SqlParameter recipeIdParameter = new SqlParameter();
-    //   recipeIdParameter.ParameterName = "@RecipeId";
-    //   recipeIdParameter.Value = this.GetId();
-    //   cmd.Parameters.Add(recipeIdParameter);
-    //   SqlDataReader rdr = cmd.ExecuteReader();
-    //
-    //   while(rdr.Read())
-    //   {
-    //     this._instructions = rdr.GetString(0);
-    //   }
-    //   if(rdr != null)
-    //   {
-    //     rdr.Close();
-    //   }
-    //   if(conn != null)
-    //   {
-    //     conn.Close();
-    //   }
-    // }
-
     public void UpdateInstructions(string newInstructions)
     {
       SqlConnection conn = DB.Connection();
@@ -383,40 +350,6 @@ namespace RecipeBox.Objects
         conn.Close();
       }
     }
-
-    // public void UpdateRating(int newRating)
-    // {
-    //   SqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //
-    //   SqlCommand cmd = new SqlCommand("UPDATE recipes SET rating = @NewRating OUTPUT INSERTED.rating WHERE id = @RecipeId;", conn);
-    //
-    //
-    //   SqlParameter newRatingParameter = new SqlParameter();
-    //   newRatingParameter.ParameterName = "@NewRating";
-    //   newRatingParameter.Value = newRating;
-    //   cmd.Parameters.Add(newRatingParameter);
-    //
-    //   SqlParameter recipeIdParameter = new SqlParameter();
-    //   recipeIdParameter.ParameterName = "@RecipeId";
-    //   recipeIdParameter.Value = this.GetId();
-    //   cmd.Parameters.Add(recipeIdParameter);
-    //   SqlDataReader rdr = cmd.ExecuteReader();
-    //
-    //   while(rdr.Read())
-    //   {
-    //     this._rating = rdr.GetInt32(0);
-    //   }
-    //   if(rdr != null)
-    //   {
-    //     rdr.Close();
-    //   }
-    //   if(conn != null)
-    //   {
-    //     conn.Close();
-    //   }
-    // }
-
 
     public static List<Recipe> SearchRecipeName(string searchRecipeName)
     {

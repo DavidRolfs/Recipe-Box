@@ -34,9 +34,8 @@
   </form>
 }
 <hr>
-<form action='/categorys/delete/@Model["category"].GetId()' method="post">
-  <input type="hidden" name="_method" value="DELETE">
-  <button type="submit" class="btn btn-danger">Delete this category</button>
-</form>
+
+  <a href="/category/delete/@Model["category"].GetId()"><button type="submit" class="btn btn-danger">Delete this category</button></a>
+
 <hr>
 <p><a href="/">Return to Main Page</a></p>

@@ -149,6 +149,16 @@ namespace RecipeBox
         model.Add("allCategories", AllCategories);
         return View["recipe.cshtml", model];
       };
+      Get["/category/delete/{id}"] = parameters => {
+        Category currentCategory = Category.Find(parameters.id);
+        return View["category_delete.cshtml", currentCategory];
+      };
+      Delete["/category/delete/{id}"] = parameters => {
+       Category currentCategory = Category.Find(parameters.id);
+       currentCategory.Delete();
+       List<Category> allCategories = Category.GetAll();
+       return View["categories.cshtml", allCategories];
+     };
     }
   }
 }
