@@ -1,6 +1,8 @@
 body{
   background-color: Tomato;
+  font-size: 20px;
 }
+
 .container-fluid {
   margin-top: none;
 }
@@ -63,4 +65,19 @@ font-family: 'Cabin Sketch', cursive;
 .btn-success:hover {
   background-color: #80d0c4;
   border-color: #4abdac;
+}
+
+.flashy {
+  animation-name: flashy;
+  animation-duration: .15s;
+  animation-iteration-count: infinite;
+  font-size: 150px;
+}
+
+@keyframes flashy {
+  0% {color: #4abdac};
+  25% {color: #4abdac};
+  50% {color: white};
+  75% {color: #4abdac};
+  100% {color: #4abdac};
 }

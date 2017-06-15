@@ -11,7 +11,7 @@
   <ul>
     @foreach (var recipe in @Model["recipeIngredient"])
     {
-      <li>@recipe.GetRecipeName(),@recipe.GetRating()</li>
+      <li>@recipe.GetRecipeName(), @recipe.GetRating() stars</li>
     }
   </ul>
 }

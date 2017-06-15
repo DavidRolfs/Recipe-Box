@@ -7,7 +7,7 @@
 @if (@Model["recipeCategory"].Count !=0)
 {
   <hr>
-  <h4>Here are all the recipes in this Category:</h4>
+  <h3>Here are all the recipes in this Category:</h3>
   <ul>
     @foreach (var recipe in @Model["recipeCategory"])
     {
@@ -19,7 +19,7 @@
 @if (@Model["allRecipes"].Count !=0)
 {
   <hr>
-  <h4>Add a recipe to this category:</h4>
+  <h3>Add a recipe to this category:</h3>
   <form action='/category/success' method='post'>
     <input id='category-id' name='category-id' type='hidden' value='@Model["category"].GetId()'>
     <label for='recipe-id'>Select a recipe</label>

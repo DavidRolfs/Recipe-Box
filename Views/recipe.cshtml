@@ -30,7 +30,7 @@
   </ul>
 }
 <hr>
-<h4>Add an ingredient for this recipe:</h4>
+<h3>Add an ingredient for this recipe:</h3>
 <form action='/recipe/ingredient/success' method='post'>
   <input id='recipe-id' name='recipe-id' type='hidden' value='@Model["recipe"].GetId()'>
   <label for='ingredient-id'>Select an ingredient</label>
@@ -42,7 +42,7 @@
   </select>
   <button type='submit' class="btn btn-success">Add</button>
 </form>
-<h4>Add a category for this recipe:</h4>
+<h3>Add a category for this recipe:</h3>
 <form action='/recipe/category/success' method='post'>
   <input id='recipe-id' name='recipe-id' type='hidden' value='@Model["recipe"].GetId()'>
   <label for='category-id'>Select a category</label>
@@ -58,14 +58,14 @@
 <form action='/recipe/update/rating/@Model["recipe"].GetId()' method="post">
   <input type="hidden" name="_method" value="PATCH">
   <label for="new-rating">Update this recipe's rating</label>
-  <input type="number" name="new-rating">
+  <input type="number" name="new-rating" placeholder="Number between 1-6">
   <button type="submit" class="btn btn-info">Update</button>
   </form>
   <br>
   <form action='/recipe/update/instructions/@Model["recipe"].GetId()' method="post">
   <input type="hidden" name="_method" value="PATCH">
   <label for="new-instructions">Update this recipe's instructions</label>
-  <input type="text" name="new-instructions">
+  <input type="text" name="new-instructions" placeholder="New instructions">
   <button type="submit" class="btn btn-info">Update</button>
 </form>
 <hr>
