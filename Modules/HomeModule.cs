@@ -179,6 +179,14 @@ namespace RecipeBox
         List<Ingredient> allIngredients = Ingredient.GetAll();
         return View["ingredients.cshtml", allIngredients];
       };
+      Get["recipes/search"] = _ => {
+        List<Recipe> allRecipes = Recipe.GetAll();
+        return View["recipes_search.cshtml", allRecipes];
+      };
+      Post["recipes/search"] = _ => {
+        List<Recipe> searchRecipe = Recipe.SearchRecipeName(Request.Form["recipe-search"]);
+        return View["recipes_search.cshtml", searchRecipe];
+      };
     }
   }
 }

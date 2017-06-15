@@ -1,0 +1,26 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+
+<h2>Search for a Recipe</h2>
+<form action="/recipes/search" method="post">
+  <label for="recipe-search">Search Word: </label>
+  <input type="text" name="recipe-search">
+  <button type="submit" name="button" class="btn btn-info">Search!</button>
+</form>
+
+<ul>
+  @if (Model.Count != 0)
+  {
+    @foreach (var recipe in Model)
+    {
+      <li><a href="/recipe/@recipe.GetId()">@recipe.GetRecipeName()</a></li>
+    }
+  }
+  else
+  {
+    <li>There is no recipe of that name OR no recipes have been added yet! <a href="/recipes/add">Add one</a></li>
+  }
+</ul>
+
+<h5><a href="/">Go Home</a></h5>
